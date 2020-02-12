@@ -1,0 +1,48 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: rest-tfserving
+spec:
+  name: resttfserving
+  predictors:
+    - protocol: tensorflow
+      transport: rest
+      componentSpecs:
+        - spec:
+            containers:
+              - args:
+                  - --port=8500
+                  - --rest_api_port=8501
+                  - --model_name=recommender
+                  - --model_base_path=s3://fdp-killrweather-data/kubeflow/recommeder/model-updated/recommender
+                image: tensorflow/serving:1.14.0
+                name: recommender
+                ports:
+                  - containerPort: 8501
+                    name: http
+                env:
+                  - name: "AWS_REGION"
+                    value: "eu-west-1"
+                  - name: "S3_REGION"
+                    value: "eu-west-1"
+                  - name: "S3_ENDPOINT"
+                    value: "s3.eu-west-1.amazonaws.com"
+                  - name: "S3_USE_HTTPS"
+                    value: "1"
+                  - name: "S3_VERIFY_SSL"
+                    value: "1"
+                  - name: "AWS_ACCESS_KEY_ID"
+                    valueFrom: { secretKeyRef: { name: "s3-credentials", key: "accessKey" } }
+                  - name: "AWS_SECRET_ACCESS_KEY"
+                    valueFrom: { secretKeyRef: { name: "s3-credentials", key: "secretKey" } }
+                volumes:
+                  - name: secret-volume
+                    secret:
+                      secretName: s3-credentials
+      graph:
+        name: recommender
+        type: MODEL
+        endpoint:
+          service_port: 8501
+      name: model
+      replicas: 1
