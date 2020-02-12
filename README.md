@@ -1,8 +1,9 @@
-# Tensorflow serving with GRPC
+# Seldon Cloudflow integration
 
-This implementation is based on this [blog post](https://medium.com/@junwan01/a-java-client-for-tensorflow-serving-grpc-api-d37b5ad747aa)
+## TF GRPC
 
-Remove this [file](protocol/src/main/protobuf/tensorflow/core/protobuf/conv_autotuning.proto)
+TF GRPC implementation is based on this [blog post](https://medium.com/@junwan01/a-java-client-for-tensorflow-serving-grpc-api-d37b5ad747aa)
+After copying proto files remove this [one](protocol/src/main/protobuf/tensorflow/core/protobuf/conv_autotuning.proto)
 
 ## Seldon deployment using Helm
 
