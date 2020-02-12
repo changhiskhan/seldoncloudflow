@@ -9,7 +9,7 @@ import pipelines.examples.modelserving.recommender.avro._
 
 class RESTModelServerStreamlet extends AkkaServerStreamlet {
 
-  val in  = AvroInlet[RecommenderRecord]("recommender-records")
+  val in = AvroInlet[RecommenderRecord]("recommender-records")
   val out = AvroOutlet[RecommenderResult]("recommender-results", _.inputRecord.datatype)
 
   final override val shape = StreamletShape.withInlets(in).withOutlets(out)

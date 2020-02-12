@@ -72,7 +72,7 @@ and [GRPC](/seldonDeployments/model_tfserving_grpc.yaml).
 
 To verify that REST deployment works correctly, run the following command:
 ````
-curl -X POST http://localhost:8003//seldon/seldon/rest-tfserving/v1/models/recommender/versions/1:predict -H "Content-Type: application/json" -d '{"signature_name":"","inputs":{"products":[[1.0],[2.0],[3.0],[4.0]],"users":[[10.0],[10.0],[10.0],[10.0]]}}'
+curl -X POST http://localhost:8003/seldon/seldon/rest-tfserving/v1/models/recommender/:predict -H "Content-Type: application/json" -d '{"signature_name":"","inputs":{"products":[[1.0],[2.0],[3.0],[4.0]],"users":[[10.0],[10.0],[10.0],[10.0]]}}'
 ````
 To verify GRPC deployment run this [simple test](/grpcclient/src/main/scala/com/lightbend/tf/grpc/SimpleTest.scala)
 
