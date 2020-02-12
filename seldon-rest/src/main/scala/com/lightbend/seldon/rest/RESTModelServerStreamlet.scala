@@ -14,7 +14,9 @@ class RESTModelServerStreamlet extends AkkaServerStreamlet {
 
   final override val shape = StreamletShape.withInlets(in).withOutlets(out)
 
-  val executor = new SeldonTFRESTExecutor("recommender", "http://localhost:8003/seldon/seldon/rest-tfserving/v1/models/recommender/:predict")
+  val path = "http://localhost:8003/seldon/seldon/rest-tfserving/v1/models/recommender/:predict"
+
+  val executor = new SeldonTFRESTExecutor("recommender", path)
 
   override protected def createLogic(): AkkaStreamletLogic =
     new HttpFlowsServerLogic(this, executor, in, out)

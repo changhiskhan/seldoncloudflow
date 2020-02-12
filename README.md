@@ -12,7 +12,7 @@ Here are the steps to install Seldon on k8 cluster (based on [this](https://gith
 kubectl create namespace seldon
 kubectl config set-context $(kubectl config current-context) --namespace=seldon
 kubectl create namespace seldon-system
-helm install seldon-core seldon-core-operator --repo  https://github.com/SeldonIO/seldon-core/tree/master/helm-charts/seldon-core-operator  --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system
+helm install seldon-core-operator helm-charts/seldon-core-operator  --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system
 kubectl rollout status deploy/seldon-controller-manager -n seldon-system
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo update

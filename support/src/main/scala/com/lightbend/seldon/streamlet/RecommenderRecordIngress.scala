@@ -34,7 +34,7 @@ final case object RecommenderRecordIngress extends AkkaStreamlet {
 
 object RecordIngressUtils {
   // Data frequency
-  lazy val dataFrequencyMilliseconds: FiniteDuration = 5.second
+  lazy val dataFrequencyMilliseconds: FiniteDuration = 100.millisecond // 10 msg per sec
 
   // Make source
   def makeSource(frequency: FiniteDuration = dataFrequencyMilliseconds): Source[RecommenderRecord, NotUsed] = {
