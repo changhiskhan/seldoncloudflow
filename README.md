@@ -67,14 +67,22 @@ To use S3 for model, first create a secret:
 ````
 kubectl create secret generic s3-credentials --from-literal=accessKey=<YOUR-ACCESS-KEY> --from-literal=secretKey=<YOUR-SECRET-KEY>
 ````
-After installation is complete, use deployment yaml files for [Rest](/seldonDeployments/model_tfserving_rest.yaml)
-and [GRPC](/seldonDeployments/model_tfserving_grpc.yaml).
+After installation is complete, use deployment yaml files for [Rest](/deployments/model_tfserving_rest.yaml)
+and [GRPC](/deployments/model_tfserving_grpc.yaml).
 
 To verify that REST deployment works correctly, run the following command:
 ````
 curl -X POST http://localhost:8003/seldon/seldon/rest-tfserving/v1/models/recommender/:predict -H "Content-Type: application/json" -d '{"signature_name":"","inputs":{"products":[[1.0],[2.0],[3.0],[4.0]],"users":[[10.0],[10.0],[10.0],[10.0]]}}'
 ````
 To verify GRPC deployment run this [simple test](/grpcclient/src/main/scala/com/lightbend/tf/grpc/SimpleTest.scala)
+
+## Cloudflow 
+
+Install [cloudflow enterprise installer](https://developer.lightbend.com/docs/cloudflow/current/install/index.html)
+Install [Ingress](/deployments/NGNIXIngressInstall)
+Install [LB console Ingress](/deployments/es-console.yaml)
+Build and deploy pipelines following [documentation](https://cloudflow.io/docs/current/get-started/deploy-to-gke-cluster.html)
+Create ingresses for models serving statistics using the following [yaml file](/deployments/modelservers.yaml)
 
 
 Copyright (C) 2020 Lightbend Inc. (https://www.lightbend.com).

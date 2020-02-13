@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: modelserving-grpc
+  namespace: seldon-grpc
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /state
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /modelserver/grpc
+            backend:
+              serviceName: seldon-grpc-model-serving-service
+              servicePort: 3001
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: modelserving-rest
+  namespace: seldon-rest
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /state
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /modelserver/rest
+            backend:
+              serviceName: seldon-rest-model-serving-service
+              servicePort: 3001
