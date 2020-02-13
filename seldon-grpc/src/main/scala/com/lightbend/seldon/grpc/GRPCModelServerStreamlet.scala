@@ -16,8 +16,10 @@ class GRPCModelServerStreamlet extends AkkaServerStreamlet {
 
   //  val host = "localhost"                          // local
   //  val port = 8003                                 // local
-  val host = "grpc-tfserving-grpctfserving-model.seldon.svc.cluster.local" // cluster
-  val port = 5001 // cluster
+  //  val host = "grpc-tfserving-grpctfserving-model.seldon.svc.cluster.local" // cluster
+  //  val port = 5001 // cluster
+  val host = "ambassador.seldon.svc.cluster.local"    // cluster
+  val port = 80                                       // cluster
 
   val executor = new SeldonTFGRPCExecutor("recommender", host, port)
 
