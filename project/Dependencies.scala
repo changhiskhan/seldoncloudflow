@@ -14,6 +14,9 @@ object Dependencies {
   val logback           = "ch.qos.logback"      % "logback-classic"     % logbackVersion
   val akkaHttpJsonJackson= "de.heikoseeberger"  %% "akka-http-jackson"  % akkaHttpJsonVersion
 
+  val tensorFlow        = "org.tensorflow"      % "tensorflow"          % tensorflowVersion
+  val tensorFlowProto   = "org.tensorflow"      % "proto"               % tensorflowVersion
+
   val scalaTest         = "org.scalatest"       %% "scalatest"          % scaltestVersion    % "test"
 
   val grpcDependencies = Seq(grpcNetty, grpcProtobuf, grpcStub, protobuf, protobufutil)

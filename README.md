@@ -79,9 +79,13 @@ To verify GRPC deployment run this [simple test](/grpcclient/src/main/scala/com/
 ## Cloudflow 
 
 Install [cloudflow enterprise installer](https://developer.lightbend.com/docs/cloudflow/current/install/index.html)
+
 Install [Ingress](/deployments/NGNIXIngressInstall)
+
 Install [LB console Ingress](/deployments/es-console.yaml)
+
 Build and deploy pipelines following [documentation](https://cloudflow.io/docs/current/get-started/deploy-to-gke-cluster.html)
+
 Create ingresses for models serving statistics using the following [yaml file](/deployments/modelservers.yaml)
 
 

@@ -23,5 +23,7 @@ object Versions {
   val scalajHTTPVersion     = "2.4.1"
   val akkaHttpJsonVersion   = "1.27.0"
 
+  val tensorflowVersion     = "1.15.0"
+
   val scaltestVersion       = "3.0.5"
 }

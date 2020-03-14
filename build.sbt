@@ -29,7 +29,7 @@ lazy val support = (project in file("./support"))
   .settings(
     name := "support",
     version := thisVersion,
-    libraryDependencies ++= Seq(gson, scalajHTTP, akkaHttpJsonJackson, logback, scalaTest)
+    libraryDependencies ++= Seq(gson, scalajHTTP, akkaHttpJsonJackson, tensorFlow, tensorFlowProto, logback, scalaTest)
   )
   .dependsOn(protocols)
   .settings(commonSettings)
@@ -65,7 +65,7 @@ lazy val commonScalacOptions = Seq(
 )
 
 lazy val scalacTestCompileOptions = commonScalacOptions ++ Seq(
-  "-Xfatal-warnings",                  // Avro generates unused imports, so this is commented out not to break build
+//  "-Xfatal-warnings",                  // Avro generates unused imports, so this is commented out not to break build
   "-Ywarn-dead-code",                  // Warn when dead code is identified.
   "-Ywarn-extra-implicit",             // Warn when more than one implicit parameter section is defined.
   "-Ywarn-numeric-widen",              // Warn when numerics are widened.

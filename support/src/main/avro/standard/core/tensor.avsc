@@ -1,0 +1,70 @@
+{
+  "namespace": "tensorflow.support.avro",
+  "type": "record",
+  "doc": "Tensor.",
+  "name": "Tensor",
+  "fields":[
+    {
+       "name": "dtype",
+       "type": "DataType"
+    },
+    {
+       "name": "tensorshape",
+       "type": "TensorShape"
+    },
+    {
+       "name":"float_data",
+       "type": ["null", {"type": "array","items": "float"}], "default":null
+    },
+    {
+       "name":"double_data",
+       "type": ["null", {"type": "array","items": "double"}], "default":null
+    },
+    {
+       "name":"long_data",
+       "type": ["null", {"type": "array","items": "long"}], "default":null
+    },
+    {
+       "name":"int_data",
+       "type": ["null", {"type": "array","items": "int"}], "default":null
+    },
+    {
+       "name":"string_data",
+       "type": ["null", {"type": "array","items": "string"}], "default":null
+    },
+    {
+       "name":"boolean_data",
+       "type": ["null", {"type": "array","items": "boolean"}], "default":null
+    },
+    {
+       "name":"complex_float_data",
+       "type": ["null",
+          {"type": "array",
+            "items":{
+               "name":"ComplexFloat",
+               "type":"record",
+               "fields":[
+                  {"name":"real", "type":"float"},
+                  {"name":"imaginary", "type":"float"}
+               ]
+            }
+          }
+       ], "default":null
+    },
+    {
+       "name":"complex_double_data",
+       "type": ["null",
+          {"type": "array",
+            "items":{
+               "name":"ComplexDouble",
+               "type":"record",
+               "fields":[
+                  {"name":"real", "type":"double"},
+                  {"name":"imaginary", "type":"double"}
+               ]
+            }
+          }
+        ], "default":null
+    }
+  ]
+}
