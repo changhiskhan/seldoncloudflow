@@ -1,0 +1,11 @@
+{
+  "namespace": "tensorflow.modelserving.avro",
+  "type": "record",
+  "name": "SourceRecord",
+  "fields":[
+    {
+        "name": "inputs",
+        "type": {"type": "map", "values": "tensorflow.support.avro.Tensor"}
+    }
+  ]
+}

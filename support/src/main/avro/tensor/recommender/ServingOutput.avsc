@@ -1,0 +1,12 @@
+{
+  "namespace": "tensorflow.modelserving.avro",
+  "name": "ServingOutput",
+  "type": "record",
+  "doc": " This is an output of the model",
+  "fields": [
+    {
+        "name": "outputs",
+        "type": {"type": "map", "values": "tensorflow.support.avro.Tensor"}
+    }
+  ]
+}

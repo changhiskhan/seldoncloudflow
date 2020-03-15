@@ -20,18 +20,18 @@ lazy val protocols =  (project in file("./protocol"))
     ) ++ grpcDependencies
   )
 
-lazy val grpcClient =  (project in file("./grpcclient"))
-  .dependsOn(protocols)
-  .settings(commonSettings)
-
 lazy val support = (project in file("./support"))
   .enablePlugins(CloudflowAkkaStreamsLibraryPlugin)
   .settings(
     name := "support",
     version := thisVersion,
-    libraryDependencies ++= Seq(gson, scalajHTTP, akkaHttpJsonJackson, tensorFlow, tensorFlowProto, logback, scalaTest)
+    libraryDependencies ++= Seq(gson, scalajHTTP, akkaHttpJsonJackson, tensorFlow, tensorFlowProto, minio, typesafeConfig, ficus, logback, scalaTest)
   )
   .dependsOn(protocols)
+  .settings(commonSettings)
+
+lazy val grpcClient =  (project in file("./grpcclient"))
+  .dependsOn(support)
   .settings(commonSettings)
 
 lazy val SeldonGRPCModelServing = (project in file("./seldon-grpc"))

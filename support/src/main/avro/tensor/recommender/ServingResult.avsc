@@ -1,0 +1,19 @@
+{
+    "namespace": "tensorflow.modelserving.avro",
+    "type": "record",
+    "name": "ServingResult",
+    "fields":[
+      {
+        "name": "inputRecord",
+        "type": "SourceRecord"
+      },
+      {
+        "name": "modelResult",
+        "type": "ServingOutput"
+      },
+      {
+        "name": "modelResultMetadata",
+        "type": "ModelResultMetadata"
+      }
+  ]
+}

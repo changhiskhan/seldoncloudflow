@@ -27,6 +27,9 @@ case class ModelToServeStats(
   }
 }
 
+/**
+ * Converted model serving statistics for HTTP
+ */
 case class ConvertedModelToServeStats(
     name:        String = "",
     description: String = "",
@@ -49,4 +52,7 @@ object ConvertedModelToServeStats {
   }
 }
 
+/**
+ * Get model serving statistics command
+ */
 case class GetState()

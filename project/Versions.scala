@@ -25,5 +25,10 @@ object Versions {
 
   val tensorflowVersion     = "1.15.0"
 
+  val minioVersion          = "6.0.11"
+
+  val TypesafeConfigVersion = "1.3.3"
+  val FicusVersion          = "1.4.5"
+
   val scaltestVersion       = "3.0.5"
 }

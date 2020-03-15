@@ -1,0 +1,20 @@
+{
+  "namespace": "tensorflow.modelserving.avro",
+    "type": "record",
+    "name": "SourceRequest",
+    "fields":[
+      {
+        "name": "inputRecords",
+        "type": "SourceRecord"
+      },
+      {
+        "name": "modelResults",
+        "type": "ServingOutput"
+      },
+      {
+        "name": "datatype",
+        "type": "string",
+        "default": "recommender"
+      }
+  ]
+}

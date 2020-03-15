@@ -1,0 +1,7 @@
+{
+  "namespace": "tensorflow.support.avro",
+  "type": "enum",
+  "doc": "Types used in tensors.",
+  "name": "DataType",
+    "symbols": ["DT_FLOAT", "DT_DOUBLE", "DT_INT64", "DT_INT32", "DT_STRING", "DT_BOOL"]
+}

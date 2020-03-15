@@ -17,6 +17,11 @@ object Dependencies {
   val tensorFlow        = "org.tensorflow"      % "tensorflow"          % tensorflowVersion
   val tensorFlowProto   = "org.tensorflow"      % "proto"               % tensorflowVersion
 
+  val minio             = "io.minio"            % "minio"               % minioVersion
+
+  val typesafeConfig    = "com.typesafe"        %  "config"             % TypesafeConfigVersion
+  val ficus             = "com.iheart"          %% "ficus"              % FicusVersion
+
   val scalaTest         = "org.scalatest"       %% "scalatest"          % scaltestVersion    % "test"
 
   val grpcDependencies = Seq(grpcNetty, grpcProtobuf, grpcStub, protobuf, protobufutil)
