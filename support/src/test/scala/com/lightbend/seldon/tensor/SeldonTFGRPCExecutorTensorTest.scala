@@ -1,24 +1,20 @@
-package com.lightbend.seldon
+package com.lightbend.seldon.tensor
 
+import com.lightbend.seldon.executors.tensor._
 import org.scalatest.FlatSpec
-import com.lightbend.seldon.executors._
-import com.lightbend.seldon.executors.tensor.TensorFlowModelExecutorTensor
 import tensorflow.modelserving.avro._
 import tensorflow.support.avro._
 
-class TensorFlowModelExecutorTensorTest extends FlatSpec {
+// To run this test, execute the following command:
+// kubectl port-forward $(kubectl get pods -n seldon -l app.kubernetes.io/name=ambassador -o jsonpath='{.items[0].metadata.name}') -n seldon 8003:8080
+class SeldonTFGRPCExecutorTensorTest extends FlatSpec {
 
-  val descriptor = ModelDescriptor(
-    modelName = "Recommendor model",
-    description = "Recommender tensorflow saved model",
-    modelSourceLocation = Seq(
-      "recommender/1/saved_model.pb",
-      "recommender/1/variables/variables.data-00000-of-00001",
-      "recommender/1/variables/variables.index"),
-    bucket = "models"
-  )
+  val signature = ""
+  val host = "localhost"
+  val port = 8003
 
-  val localDirectory = "/Users/boris/Projects/TFGRPC/data/model/1"
+  // the model's name.
+  val modelName = "recommender"
 
   val products = Seq(1L, 2L, 3L, 4L)
   val user = 10L
@@ -31,8 +27,8 @@ class TensorFlowModelExecutorTensorTest extends FlatSpec {
 
   "Processing of model" should "complete successfully" in {
 
-    val executor = new TensorFlowModelExecutorTensor(descriptor, localDirectory)
-    println("Executor created")
+    val executor = new SeldonTFGRPCExecutorTensor(modelName, "recommender", signature, host, port)
+    println("Model created")
     val result = executor.score(SourceRequest(inputRecords = SourceRecord(Map("users" -> uTensor, "products" -> pTensor)),
       modelResults = ServingOutput(Map("predictions" -> rTensor))))
     println(result)

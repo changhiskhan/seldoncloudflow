@@ -1,6 +1,6 @@
 package com.lightbend.seldon.actor.tensor
 
-import akka.actor.{Actor, Props}
+import akka.actor.{ Actor, Props }
 import akka.event.Logging
 import com.lightbend.seldon.executors.tensor.TFBaseExecutor
 import com.lightbend.seldon.stats._

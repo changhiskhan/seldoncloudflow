@@ -28,16 +28,25 @@
       "default" : "null"
     },
     {
+      "name" : "modelcontent",
+      "type" : [
+        "null",
+        {"type": "array", "items": "bytes"}
+      ],
+      "default" : "null"
+    },
+    {
       "name": "modelSourceLocation",
-      "type": {
-        "type": "array",
-        "items": "string"
-       }
+      "type": [
+        "null",
+        {"type": "array","items": "string"}
+      ],
+      "default" : "null"
     },
     {
       "name": "bucket",
-      "type": "string",
-      "default": ""
+      "type": ["null", "string"],
+      "default": "null"
     },
     {
       "name": "datatype",

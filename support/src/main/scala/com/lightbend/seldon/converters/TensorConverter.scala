@@ -22,12 +22,12 @@ object TensorConverter {
     val dataMap = tensors.map {
       case (n, t) ⇒
         val dimensions = t.tensorshape.dim.map(d ⇒ d.size.toInt).reverse.dropRight(1)
-        var data: Array[AnyRef] = t.dtype match {
-          case DataType.DT_FLOAT  ⇒ t.float_data.get.map(_.toString).toArray
-          case DataType.DT_DOUBLE ⇒ t.double_data.get.map(_.toString).toArray
-          case DataType.DT_INT64  ⇒ t.long_data.get.map(_.toString).toArray
-          case DataType.DT_INT32  ⇒ t.int_data.get.map(_.toString).toArray
-          case DataType.DT_BOOL   ⇒ t.boolean_data.get.map(_.toString).toArray
+        var data: Array[Any] = t.dtype match {
+          case DataType.DT_FLOAT  ⇒ t.float_data.get.toArray
+          case DataType.DT_DOUBLE ⇒ t.double_data.get.toArray
+          case DataType.DT_INT64  ⇒ t.long_data.get.toArray
+          case DataType.DT_INT32  ⇒ t.int_data.get.toArray
+          case DataType.DT_BOOL   ⇒ t.boolean_data.get.toArray
           case _                  ⇒ t.string_data.get.toArray
         }
         dimensions.foreach { d ⇒
@@ -42,9 +42,9 @@ object TensorConverter {
   }
 
   def JSONToAvro(tensors: Map[String, Tensor], message: String): Map[String, Tensor] = {
-    val result: java.util.Map[String, Array[AnyRef]] = tensors.size match {
+    val result: java.util.Map[String, Array[Any]] = tensors.size match {
       case size if size == 1 ⇒
-        val typeMap: Type = new TypeToken[java.util.Map[String, Array[AnyRef]]] {}.getType()
+        val typeMap: Type = new TypeToken[java.util.Map[String, Array[Any]]] {}.getType()
         gson.fromJson(message, typeMap)
       case _ ⇒
         gson.fromJson(message, classOf[Response]).outputs
@@ -70,13 +70,13 @@ object TensorConverter {
     }.toMap
   }
 
-  private def flaten(original: Seq[AnyRef]): Seq[String] = {
-    if (original(0).isInstanceOf[String])
-      original.toSeq.map(_.asInstanceOf[String])
-    else
+  private def flaten(original: Seq[Any]): Seq[String] = {
+    if (original(0).isInstanceOf[util.ArrayList[Any]])
       original.toSeq.map { value ⇒
-        flaten(value.asInstanceOf[util.ArrayList[AnyRef]].asScala)
+        flaten(value.asInstanceOf[util.ArrayList[Any]].asScala)
       }.flatten
+    else
+      original.map(_.toString)
   }
 
   def avroToProto(modelname: String, signaturename: String, tensors: Map[String, Tensor]): PredictRequest = {
@@ -128,31 +128,31 @@ object TensorConverter {
             val data = t.float_data.get
             val buffer = FloatBuffer.allocate(data.size)
             data.foreach(buffer.put(_))
-            buffer.rewind()
+            buffer.flip()
             org.tensorflow.Tensor.create(shape, buffer)
           case DataType.DT_DOUBLE ⇒
             val data = t.double_data.get
             val buffer = DoubleBuffer.allocate(data.size)
             data.foreach(buffer.put(_))
-            buffer.rewind()
+            buffer.flip()
             org.tensorflow.Tensor.create(shape, buffer)
           case DataType.DT_INT64 ⇒
             val data = t.long_data.get
             val buffer = LongBuffer.allocate(data.size)
             data.foreach(buffer.put(_))
-            buffer.rewind()
+            buffer.flip()
             org.tensorflow.Tensor.create(shape, buffer)
           case DataType.DT_INT32 ⇒
             val data = t.int_data.get
             val buffer = IntBuffer.allocate(data.size)
             data.foreach(buffer.put(_))
-            buffer.rewind()
+            buffer.flip()
             org.tensorflow.Tensor.create(shape, buffer)
           case DataType.DT_BOOL ⇒
             val data = t.boolean_data.get
             val buffer = ByteBuffer.allocate(data.size)
             data.foreach { v ⇒ buffer.put(if (v) 1.toByte else 0.toByte) }
-            buffer.rewind()
+            buffer.flip()
             org.tensorflow.Tensor.create(classOf[java.lang.Boolean], shape, buffer)
           case _ ⇒
             val data = t.string_data.get
@@ -162,7 +162,7 @@ object TensorConverter {
               buffer.putInt(s.size)
               buffer.put(s.getBytes())
             }
-            buffer.rewind()
+            buffer.flip()
             org.tensorflow.Tensor.create(classOf[java.lang.String], shape, buffer)
         }
         (n, tensor)
@@ -197,7 +197,7 @@ object TensorConverter {
           case _ ⇒
             val buffer = ByteBuffer.allocate(t.numBytes())
             t.writeTo(buffer)
-            buffer.rewind()
+            buffer.flip()
             val array = new Array[String](t.numElements)
             0 to array.size - 1 foreach { i ⇒
               val length = buffer.getInt
@@ -212,6 +212,6 @@ object TensorConverter {
   }
 }
 
-case class Request(signature_name: String, inputs: java.util.Map[String, Array[AnyRef]])
+case class Request(signature_name: String, inputs: java.util.Map[String, Array[Any]])
 
-case class Response(outputs: java.util.Map[String, Array[AnyRef]])
+case class Response(outputs: java.util.Map[String, Array[Any]])

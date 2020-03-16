@@ -20,10 +20,10 @@ import scala.concurrent.duration._
 import scala.util.Failure
 
 class HttpFlowsServerLogicTensor(
-    server:   Server,                       // Provides `containerPort` and a `getContainerPort()` method.
-    executor: TFBaseExecutor,               // Executor - a class that implements the actual inference
-    inlet:    AvroInlet[SourceRequest],     // Inlet
-    outlet:   AvroOutlet[ServingResult])    // Outlet
+    server:   Server, // Provides `containerPort` and a `getContainerPort()` method.
+    executor: TFBaseExecutor, // Executor - a class that implements the actual inference
+    inlet:    AvroInlet[SourceRequest], // Inlet
+    outlet:   AvroOutlet[ServingResult]) // Outlet
   (implicit context: AkkaStreamletContext) extends ServerStreamletLogic(server) {
 
   implicit val askTimeout: Timeout = Timeout(30.seconds)

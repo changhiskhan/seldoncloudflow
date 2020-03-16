@@ -14,9 +14,10 @@ class SeldonTFRESTExecutor(modelName: String, source: String) extends SeldonBase
     val products = record.products.map(p ⇒ Array(p.toDouble)).toArray
     val users = record.products.map(_ ⇒ Array(record.user.toDouble)).toArray
     val request = Request("", RequestInputs(products, users))
+    val requestString = gson.toJson(request)
 
     try {
-      val response = Http(source).postData(gson.toJson(request)).header("content-type", "application/json").asString
+      val response = Http(source).postData(requestString).header("content-type", "application/json").asString
       response.code match {
         case code if code == 200 ⇒ // Got successful response
           val prediction = gson.fromJson(response.body, classOf[RecommendationOutputs])

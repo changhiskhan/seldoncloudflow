@@ -1,4 +1,4 @@
-package com.lightbend.seldon
+package com.lightbend.seldon.tensor
 
 import com.lightbend.seldon.converters.TensorConverter._
 import org.scalatest.FlatSpec
@@ -21,7 +21,8 @@ class TensorConvertertest  extends FlatSpec {
   private val sTensor = Tensor(dtype = DataType.DT_STRING, tensorshape = shape, string_data = Some(string))
 
   private val rTensor = Tensor(dtype = dtype, tensorshape = shape)
-  private val message = """{"outputs":[["0.01"],["0.02"],["0.03"],["0.04"]]}"""
+  private val rTensor1 = Tensor(dtype = DataType.DT_STRING, tensorshape = shape)
+  private val message = """{"outputs":[[0.01f],[0.02f],[0.03f],[0.04f]]}"""
   private val message1 = """{"outputs":["0.01","0.02","0.03","0.04"]}"""
   private val message2 = """{"outputs":[[["0.01"],["0.02"]],[["0.03"],["0.04"]]]}"""
 
@@ -32,8 +33,8 @@ class TensorConvertertest  extends FlatSpec {
 
   "Converting feom JSON to Avro" should "should work correctly" in {
     println(JSONToAvro(Map("outputs" -> rTensor), message))
-    println(JSONToAvro(Map("outputs" -> rTensor), message1))
-    println(JSONToAvro(Map("outputs" -> rTensor), message2))
+    println(JSONToAvro(Map("outputs" -> rTensor1), message1))
+    println(JSONToAvro(Map("outputs" -> rTensor1), message2))
   }
 
   "Converting feom Avro to Proto" should "should work correctly" in {

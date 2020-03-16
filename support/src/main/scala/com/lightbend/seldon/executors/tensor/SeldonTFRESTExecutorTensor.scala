@@ -22,8 +22,7 @@ class SeldonTFRESTExecutorTensor(modelName: String, signature: String, source: S
         case _ ⇒ // Got error response
           Left(response.body)
       }
-    }
-    // HTTP request fails
+    } // HTTP request fails
     catch {
       case t: Throwable ⇒
         println(s"Error accessing HTTP server $source")

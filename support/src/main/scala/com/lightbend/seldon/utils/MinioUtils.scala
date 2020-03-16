@@ -1,4 +1,4 @@
-package com.lightbend.seldon.minio
+package com.lightbend.seldon.utils
 
 import java.io._
 

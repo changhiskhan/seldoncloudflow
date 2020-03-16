@@ -5,7 +5,7 @@ import cloudflow.akkastream.scaladsl.RunnableGraphStreamletLogic
 import cloudflow.streamlets.StreamletShape
 import cloudflow.streamlets.avro.AvroInlet
 import tensorflow.modelserving.avro.ServingResult
-import tensorflow.support.avro.{DataType, Tensor}
+import tensorflow.support.avro.{ DataType, Tensor }
 
 final case object RecommenderResultConsoleEgressTensor extends AkkaStreamlet {
 

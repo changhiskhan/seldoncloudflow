@@ -10,7 +10,7 @@ import org.tensorflow.framework._
 import tensorflow.modelserving.avro._
 
 import scala.collection.JavaConverters._
-import scala.collection.mutable.{Map => MMap}
+import scala.collection.mutable.{ Map ⇒ MMap }
 
 /**
  * Class encapsulating TensorFlow (SavedModelBundle) model processing.
