@@ -46,4 +46,4 @@ spec:
           service_port: 8500
           type: GRPC
       name: model
-      replicas: 1
+      replicas: 5

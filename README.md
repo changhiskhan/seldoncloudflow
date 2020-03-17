@@ -70,6 +70,8 @@ kubectl create secret generic s3-credentials --from-literal=accessKey=<YOUR-ACCE
 After installation is complete, use deployment yaml files for [Rest](/deployments/model_tfserving_rest.yaml)
 and [GRPC](/deployments/model_tfserving_grpc.yaml).
 
+***Note:*** To scale Seldon deployment specify the amount of `replicas` that you need. This will start replicated `SeldonDeployments` accessed through the same service. Typically, in this case, you would also need to scale a streamlet accessing this service.
+
 To verify that REST deployment works correctly, run the following command:
 ````
 curl -X POST http://localhost:8003/seldon/seldon/rest-tfserving/v1/models/recommender/:predict -H "Content-Type: application/json" -d '{"signature_name":"","inputs":{"products":[[1.0],[2.0],[3.0],[4.0]],"users":[[10.0],[10.0],[10.0],[10.0]]}}'
@@ -79,6 +81,15 @@ To verify GRPC deployment run this [simple test](/grpcclient/src/main/scala/com/
 ## Cloudflow 
 
 Install [cloudflow enterprise installer](https://developer.lightbend.com/docs/cloudflow/current/install/index.html)
+To scale pipeline deployment use the following command:
+````
+kubectl cloudflow scale <app> <streamlet> <n>
+````
+where:
+* `app` is the name of deployed cloudflow application. To get deployed application's names execute `kubectl cloudflow list` 
+and pick the appropriate application, for example, `seldon-grpc`
+* `streamlet` is streamlet name, as defined in the blueprint, for example, `model-serving` 
+* `n` - the amount of required instances of streamlet, for example, `5`
 
 Install [Ingress](/deployments/NGNIXIngressInstall)
 

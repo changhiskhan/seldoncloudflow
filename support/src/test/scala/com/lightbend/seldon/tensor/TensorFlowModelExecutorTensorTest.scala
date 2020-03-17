@@ -14,7 +14,7 @@ class TensorFlowModelExecutorTensorTest extends FlatSpec {
     bucket = None
   )
 
-  val localDirectory = "/Users/boris/Projects/TFGRPC/data/model/1"
+  val localDirectory = "/Users/boris/Projects/TFGRPC/data/recommender/model/1"
 
   val products = Seq(1L, 2L, 3L, 4L)
   val user = 10L
