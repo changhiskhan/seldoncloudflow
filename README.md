@@ -81,6 +81,7 @@ To verify GRPC deployment run this [simple test](/grpcclient/src/main/scala/com/
 ## Cloudflow 
 
 Install [cloudflow enterprise installer](https://developer.lightbend.com/docs/cloudflow/current/install/index.html)
+
 To scale pipeline deployment use the following command:
 ````
 kubectl cloudflow scale <app> <streamlet> <n>
