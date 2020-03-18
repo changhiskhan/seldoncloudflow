@@ -7,14 +7,14 @@ import io.grpc.stub._
 import tensorflow.modelserving.avro._
 import tensorflow.serving.prediction_service._
 
-class SeldonTFGRPCExecutorTensor(modelName: String, model: String, signature: String, host: String, port: Int)
+class SeldonTFGRPCExecutorTensor(deployment: String, modelName: String, model: String, signature: String, host: String, port: Int)
   extends TFBaseExecutor(modelName, s"$host:$port") {
 
   import SeldonTFGRPCExecutor._
 
   // Headers
   val headers = new Metadata()
-  headers.put(SELDON_KEY, "grpc-tfserving")
+  headers.put(SELDON_KEY, deployment)
   headers.put(NAMESPACE_KEY, "seldon")
 
   // create a stub

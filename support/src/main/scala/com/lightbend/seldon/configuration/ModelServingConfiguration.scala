@@ -2,6 +2,8 @@ package com.lightbend.seldon.configuration
 
 import com.typesafe.config.ConfigFactory
 
+import scala.concurrent.duration._
+
 /**
  * Various configuration parameters.
  */
@@ -43,5 +45,17 @@ object ModelServingConfiguration {
     config.getString("rest.path")
   } catch {
     case _: Throwable ⇒ "http://ambassador.seldon.svc.cluster.local:80/seldon/seldon/rest-tfserving/v1/models/recommender/:predict"
+  }
+
+  // Load
+  val DATA_FREQUENCY: FiniteDuration = (try {
+    Duration(config.getString("source.frequency"))
+  } catch {
+    case _: Throwable ⇒ Duration("5 millisecond")
+  }).toMillis.millisecond
+  val DATA_FILE = try {
+    config.getString("source.data")
+  } catch {
+    case _: Throwable ⇒ "data/fraud/data/creditcard.csv"
   }
 }

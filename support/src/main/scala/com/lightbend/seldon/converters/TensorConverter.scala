@@ -35,10 +35,13 @@ object TensorConverter {
         }
         (n, data)
     }.asJava
+    /*
     dataMap.size() match {
       case size if size == 1 ⇒ """{"signature_name":"""" + signature_name + """",""" + gson.toJson(dataMap).substring(1)
       case _                 ⇒ gson.toJson(Request(signature_name, dataMap))
     }
+*/
+    gson.toJson(Request(signature_name, dataMap))
   }
 
   def JSONToAvro(tensors: Map[String, Tensor], message: String): Map[String, Tensor] = {
@@ -52,7 +55,13 @@ object TensorConverter {
     result.asScala.map {
       case (name, value) ⇒
         val flatten = flaten(value.toSeq)
-        val tensor = tensors.get(name)
+        var nm = name
+        val tensor = tensors.size match {
+          case 1 =>
+            nm = tensors.keys.head
+            Some(tensors.values.head)
+          case _ => tensors.get(name)
+        }
         val rTensor = tensor match {
           case Some(t) ⇒
             val newTensor = t.dtype match {
@@ -66,7 +75,7 @@ object TensorConverter {
             newTensor
           case _ ⇒ Tensor(DataType.DT_STRING, TensorShape(Seq.empty))
         }
-        (name, rTensor)
+        (nm, rTensor)
     }.toMap
   }
 

@@ -27,7 +27,7 @@ class SeldonTFGRPCExecutorTensorTest extends FlatSpec {
 
   "Processing of model" should "complete successfully" in {
 
-    val executor = new SeldonTFGRPCExecutorTensor(modelName, "recommender", signature, host, port)
+    val executor = new SeldonTFGRPCExecutorTensor("grpc-tfserving", modelName, "recommender", signature, host, port)
     println("Model created")
     val result = executor.score(SourceRequest(inputRecords = SourceRecord(Map("users" -> uTensor, "products" -> pTensor)),
       modelResults = ServingOutput(Map("predictions" -> rTensor))))

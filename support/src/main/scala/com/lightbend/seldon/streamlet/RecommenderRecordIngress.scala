@@ -19,7 +19,7 @@ import scala.util.Random
 final case object RecommenderRecordIngress extends AkkaStreamlet {
 
   // Output
-  val out = AvroOutlet[RecommenderRecord]("recommender-records", _.datatype)
+  val out = AvroOutlet[RecommenderRecord]("recommender-records")
 
   // Shape
   final override val shape = StreamletShape.withOutlets(out)
@@ -34,7 +34,7 @@ final case object RecommenderRecordIngress extends AkkaStreamlet {
 
 object RecordIngressUtils {
   // Data frequency
-  lazy val dataFrequencyMilliseconds: FiniteDuration = 5.millisecond // 200 msg per sec
+  lazy val dataFrequencyMilliseconds: FiniteDuration = 1.millisecond // 200 msg per sec
 
   // Make source
   def makeSource(frequency: FiniteDuration = dataFrequencyMilliseconds): Source[RecommenderRecord, NotUsed] = {

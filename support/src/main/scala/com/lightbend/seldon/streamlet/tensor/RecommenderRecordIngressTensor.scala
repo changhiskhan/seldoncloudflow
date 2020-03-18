@@ -38,7 +38,7 @@ final case object RecommenderRecordIngressTensor extends AkkaStreamlet {
  */
 object RecordIngressUtilsTensor {
   // Data frequency
-  lazy val dataFrequencyMilliseconds: FiniteDuration = 5.millisecond // 200 msg per sec
+  lazy val dataFrequencyMilliseconds: FiniteDuration = 1.millisecond // 1000 msg per sec
 
   // Make source
   def makeSource(frequency: FiniteDuration = dataFrequencyMilliseconds): Source[SourceRequest, NotUsed] = {

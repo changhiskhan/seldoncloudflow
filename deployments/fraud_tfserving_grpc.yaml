@@ -1,9 +1,9 @@
 apiVersion: machinelearning.seldon.io/v1
 kind: SeldonDeployment
 metadata:
-  name: grpc-tfserving
+  name: fraud-grpc-tfserving
 spec:
-  name: grpctfserving
+  name: fraudgrpctfserving
   predictors:
     - protocol: tensorflow
       transport: grpc
@@ -13,10 +13,10 @@ spec:
               - args:
                   - --port=8500
                   - --rest_api_port=8501
-                  - --model_name=recommender
-                  - --model_base_path=s3://fdp-killrweather-data/kubeflow/recommeder/model-updated/recommender
+                  - --model_name=fraud
+                  - --model_base_path=s3://fdp-killrweather-data/kubeflow/fraud_detection/model/fraud
                 image: tensorflow/serving:1.14.0
-                name: recommender
+                name: fraud
                 ports:
                   - containerPort: 8500
                     name: grpc
@@ -40,10 +40,10 @@ spec:
                     secret:
                       secretName: s3-credentials
       graph:
-        name: recommender
+        name: fraud
         type: MODEL
         endpoint:
           service_port: 8500
           type: GRPC
       name: model
-      replicas: 10
+      replicas: 1

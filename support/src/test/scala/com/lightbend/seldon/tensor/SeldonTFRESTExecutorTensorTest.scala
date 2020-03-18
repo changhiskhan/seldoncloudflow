@@ -27,7 +27,7 @@ class SeldonTFRESTExecutorTensorTest extends FlatSpec {
     val executor = new SeldonTFRESTExecutorTensor(modelName, signature, path)
     println("Model created")
     val result = executor.score(SourceRequest(inputRecords = SourceRecord(Map("users" -> uTensor, "products" -> pTensor)),
-      modelResults = ServingOutput(Map("outputs" -> rTensor))))
+      modelResults = ServingOutput(Map("predictions" -> rTensor))))
     println(result)
   }
 }
