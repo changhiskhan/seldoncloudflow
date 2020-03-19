@@ -19,7 +19,7 @@ import scala.concurrent.duration._
 final case object FraudRecordIngressTensor extends AkkaStreamlet {
 
   // Output
-  val out = AvroOutlet[SourceRequest]("source-records", _.datatype)
+  val out = AvroOutlet[SourceRequest]("source-records")
 
   // Shape
   final override val shape = StreamletShape.withOutlets(out)

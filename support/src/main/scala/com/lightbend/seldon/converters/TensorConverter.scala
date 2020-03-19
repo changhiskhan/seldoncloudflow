@@ -57,10 +57,10 @@ object TensorConverter {
         val flatten = flaten(value.toSeq)
         var nm = name
         val tensor = tensors.size match {
-          case 1 =>
+          case 1 ⇒
             nm = tensors.keys.head
             Some(tensors.values.head)
-          case _ => tensors.get(name)
+          case _ ⇒ tensors.get(name)
         }
         val rTensor = tensor match {
           case Some(t) ⇒
