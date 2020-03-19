@@ -100,11 +100,22 @@ Build and deploy pipelines following [documentation](https://cloudflow.io/docs/c
 
 Create ingresses for models serving statistics using the following [yaml file](/deployments/modelservers.yaml)
 
+## Avro tensor
+
+To simplify usage of the tensorflow that is all based on Tensors, this project implements Avro Tensor support, which consists of 2 main parts:
+* Avro Tensor definitions, that is located [here](support/src/main/avro/tensor/core), which is modeled after protobuf Tensor definitions
+* [Avro Tensor converter](support/src/main/scala/com/lightbend/seldon/converters/TensorConverter.scala),
+which provide conversion between Avro tensor representations and other tensor representation commonly used 
+(protobufs, JSON, Tensors from Tensorflow Java library)
+
+Usage of this code allows for building of "standard" independent of actual model [message definitions](support/src/main/avro/tensor/recommender), and much simpler implementation 
+of executors. 
+
 ## Fraud detection
 
 Training notebook is [here](/frauddetector/python/FraudDetection.ipynb).
 Training data (used for serving as well) is [here](/data/fraud/data/creditcard.zip)
-Resulting model (based on Autoencoder) is [here](/data/fraud/model). Model name is `model_1`
+Resulting model (based on Autoencoder) is [here](/data/fraud/model).
 
 To quickly test the model run it locally using tensorflow serving:
 ````
