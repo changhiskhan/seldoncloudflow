@@ -21,7 +21,7 @@ final case object FraudCalculatorTensor extends AkkaStreamlet {
   private val output = "predictions"
 
   // threshold
-  val threshold = 2.9
+  val threshold = 4.0
 
   // Input
   val in = AvroInlet[ServingResult]("inference-result")

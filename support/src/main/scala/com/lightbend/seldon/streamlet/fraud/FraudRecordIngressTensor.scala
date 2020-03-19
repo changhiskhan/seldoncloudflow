@@ -90,15 +90,12 @@ object FraudRecordGeneratorTensor {
   private def getListOfDataRecords(file: String): Seq[Seq[Float]] = {
 
     var result = Seq.empty[Seq[Float]]
-    val bufferedSource = scala.io.Source.fromFile(file)
-    var firstLine = true
-    for (line ← bufferedSource.getLines) {
-      firstLine match {
-        case true ⇒ firstLine = false
-        case _ ⇒
-          val record = line.split(",").map(_.trim).drop(1).dropRight(1).map(_.toFloat).toSeq
-          result = record +: result
-      }
+    //    val bufferedSource = scala.io.Source.fromFile(file)
+    val is = getClass.getResourceAsStream(file)
+    val bufferedSource = scala.io.Source.fromInputStream(is)
+    bufferedSource.getLines.foreach { line ⇒
+      val record = line.split(",").map(_.trim).drop(1).dropRight(1).map(_.toFloat).toSeq
+      result = record +: result
     }
     bufferedSource.close
     result
