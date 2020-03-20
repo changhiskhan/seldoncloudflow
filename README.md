@@ -78,6 +78,14 @@ curl -X POST http://localhost:8003/seldon/seldon/rest-tfserving/v1/models/recomm
 ````
 To verify GRPC deployment run this [simple test](/grpcclient/src/main/scala/com/lightbend/tf/grpc/SimpleTest.scala)
 
+### Install Jaeger for Tracing
+
+One of the important tools to understand Seldon deployment behavior is usage of tracing via Jaeger (see [here](https://github.com/SeldonIO/seldon-core/blob/master/examples/models/tracing/tracing.ipynb) for an example).
+
+To do this install Jaeger following [this](/deployments/jaegerInstall).
+This installs a simple Jaeger [server](/deployments/jaeger.yaml) and [UI](/deployments/jaegerUI.yaml)
+
+
 ## Cloudflow 
 
 Install [cloudflow enterprise installer](https://developer.lightbend.com/docs/cloudflow/current/install/index.html)

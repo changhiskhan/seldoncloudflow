@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fraud-modelserving-grpc
+  namespace: fraud-grpc
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /state
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /modelserver/fraud/grpc
+            backend:
+              serviceName: fraud-grpc-model-serving-service
+              servicePort: 3003
