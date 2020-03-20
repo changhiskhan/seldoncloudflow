@@ -3,6 +3,8 @@ kind: SeldonDeployment
 metadata:
   name: fraud-grpc-tfserving
 spec:
+  annotations:
+    seldon.io/headless-svc: "true"
   name: fraudgrpctfserving
   predictors:
     - protocol: tensorflow

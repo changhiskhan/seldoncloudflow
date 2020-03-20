@@ -14,3 +14,20 @@ spec:
             backend:
               serviceName: fraud-grpc-model-serving-service
               servicePort: 3003
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fraud-modelserving-rest
+  namespace: fraud-rest
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /state
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /modelserver/fraud/rest
+            backend:
+              serviceName: fraud-rest-model-serving-service
+              servicePort: 3004
