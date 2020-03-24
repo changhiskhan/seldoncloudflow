@@ -26,9 +26,9 @@ final case object FraudCalculatorTensor extends AkkaStreamlet {
   // Input
   val in = AvroInlet[ServingResult]("inference-result")
   // Output
-  val normals = AvroOutlet[ServingResult]("normal-transactions", _.datatype)
-  val frauds = AvroOutlet[ServingResult]("fraud-transactions", _.datatype)
-  val errors = AvroOutlet[ServingResult]("error-transactions", _.datatype)
+  val normals = AvroOutlet[ServingResult]("normal-transactions")
+  val frauds = AvroOutlet[ServingResult]("fraud-transactions")
+  val errors = AvroOutlet[ServingResult]("error-transactions")
 
   // Shape
   final override val shape = StreamletShape.withInlets(in).withOutlets(normals, frauds, errors)
