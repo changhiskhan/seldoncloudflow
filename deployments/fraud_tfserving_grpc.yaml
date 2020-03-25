@@ -61,7 +61,7 @@ spec:
           service_port: 8500
           type: GRPC
       name: model
-      replicas: 15
+      replicas: 20
       svcOrchSpec:
         env:
           - name: TRACING

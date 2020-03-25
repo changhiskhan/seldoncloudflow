@@ -12,7 +12,7 @@ import tensorflow.support.avro._
  * @param inlet CodecInlet for records of type ServingResult
  */
 case class ConsoleEgressLogic(
-  inlet: CodecInlet[ServingResult], message: String)
+    inlet: CodecInlet[ServingResult], message: String)
   (implicit context: AkkaStreamletContext)
   extends RunnableGraphStreamletLogic {
 
@@ -38,12 +38,12 @@ case class ConsoleEgressLogic(
   // write tensor name pairs
   private def write(name: String, t: Tensor): Unit = {
     val data = t.dtype match {
-      case DataType.DT_FLOAT ⇒ t.float_data.get.map(_.toString)
+      case DataType.DT_FLOAT  ⇒ t.float_data.get.map(_.toString)
       case DataType.DT_DOUBLE ⇒ t.double_data.get.map(_.toString)
-      case DataType.DT_INT64 ⇒ t.long_data.get.map(_.toString)
-      case DataType.DT_INT32 ⇒ t.int_data.get.map(_.toString)
-      case DataType.DT_BOOL ⇒ t.boolean_data.get.map(_.toString)
-      case _ ⇒ t.string_data.get
+      case DataType.DT_INT64  ⇒ t.long_data.get.map(_.toString)
+      case DataType.DT_INT32  ⇒ t.int_data.get.map(_.toString)
+      case DataType.DT_BOOL   ⇒ t.boolean_data.get.map(_.toString)
+      case _                  ⇒ t.string_data.get
     }
     println(s"$name -> $data")
   }
