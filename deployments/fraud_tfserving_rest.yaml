@@ -58,7 +58,7 @@ spec:
         endpoint:
           service_port: 8501
       name: model
-      replicas: 15
+      replicas: 20
       svcOrchSpec:
         env:
           - name: TRACING

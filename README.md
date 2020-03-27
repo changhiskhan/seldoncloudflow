@@ -1,5 +1,10 @@
 # Seldon Cloudflow integration
 
+[Seldon core](https://www.seldon.io/) is one of the most popular open source machine learning
+deployment project allowing to manage, serve and scale models built in any framework on Kubernetes. 
+[Cloudflow][https://cloudflow.io/] is a framework that enables you to quickly develop, orchestrate, and operate distributed streaming applications on Kubernetes.
+The purpose of this project is to create a demo of how the two can be used together.
+
 ## TF GRPC
 
 TF GRPC implementation is based on this [blog post](https://medium.com/@junwan01/a-java-client-for-tensorflow-serving-grpc-api-d37b5ad747aa)
