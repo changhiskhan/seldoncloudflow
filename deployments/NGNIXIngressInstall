@@ -1,3 +1,7 @@
+for Helm 3
+helm repo add nginx-stable https://helm.nginx.com/stable
+helm repo update
+
 helm install --name nginx-ingress stable/nginx-ingress --set rbac.create=true --set controller.publishService.enabled=true
 #using http2
 helm install --name nginx-ingress stable/nginx-ingress --set rbac.create=true --set controller.publishService.enabled=true --set-string controller.config.use-http2=true

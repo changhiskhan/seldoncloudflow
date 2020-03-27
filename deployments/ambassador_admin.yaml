@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ambassador-admin
+  namespace: seldon
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /ambassador/v0/diag/
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /ambassador
+            backend:
+              serviceName: ambassador-admin
+              servicePort: 8877

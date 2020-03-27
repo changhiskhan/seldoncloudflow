@@ -9,7 +9,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /jaeger
+          - path: /
             backend:
               serviceName: simplest-query
               servicePort: 16686

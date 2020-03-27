@@ -12,7 +12,8 @@ Here are the steps to install Seldon on k8 cluster (based on [this](https://gith
 kubectl create namespace seldon
 kubectl config set-context $(kubectl config current-context) --namespace=seldon
 kubectl create namespace seldon-system
-helm install seldon-core-operator helm-charts/seldon-core-operator  --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system
+#helm install seldon-core seldon-core-operator --repo https://storage.googleapis.com/seldon-charts --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system
+helm install seldon-core --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system /Users/boris/BigData/seldon-core/helm-charts/seldon-core-operator
 kubectl rollout status deploy/seldon-controller-manager -n seldon-system
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo update
@@ -89,6 +90,13 @@ This installs a simple Jaeger [server](/deployments/jaeger.yaml) and [UI](/deplo
 ## Cloudflow 
 
 Install [cloudflow enterprise installer](https://developer.lightbend.com/docs/cloudflow/current/install/index.html)
+For Helm3, here is the sequence of commands to install NFS provisioner:
+````
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo update
+helm install nfs-server stable/nfs-server-provisioner
+````
+Also see [here](https://www.digitalocean.com/community/tutorials/how-to-set-up-readwritemany-rwx-persistent-volumes-with-nfs-on-digitalocean-kubernetes) for more details
 
 To scale pipeline deployment use the following command:
 ````
@@ -138,6 +146,10 @@ To try prediction, you can try:
 ````
 curl -X POST http://localhost:8501/v1/models/fraud/versions/1:predict -d '{"signature_name":"","inputs":{"transaction":[[-1.3598071336738,-0.0727811733098497,2.53634673796914,1.37815522427443,-0.338320769942518,0.462387777762292,0.239598554061257,0.0986979012610507,0.363786969611213,0.0907941719789316,-0.551599533260813,-0.617800855762348,-0.991389847235408,-0.311169353699879,1.46817697209427,-0.470400525259478,0.207971241929242,0.0257905801985591,0.403992960255733,0.251412098239705,-0.018306777944153,0.277837575558899,-0.110473910188767,0.0669280749146731,0.128539358273528,-0.189114843888824,0.133558376740387,-0.0210530534538215,149.62]]}}'
 ````
-
+##Useful commands
+Remove all evicted pods:
+````
+kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod
+````
 Copyright (C) 2020 Lightbend Inc. (https://www.lightbend.com).
 
