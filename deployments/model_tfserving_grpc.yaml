@@ -3,6 +3,8 @@ kind: SeldonDeployment
 metadata:
   name: grpc-tfserving
 spec:
+  annotations:
+    seldon.io/headless-svc: "true"
   name: grpctfserving
   predictors:
     - protocol: tensorflow
@@ -46,4 +48,4 @@ spec:
           service_port: 8500
           type: GRPC
       name: model
-      replicas: 10
+      replicas: 5

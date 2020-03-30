@@ -6,6 +6,7 @@ import cloudflow.streamlets.avro._
 import com.lightbend.seldon.executors._
 import com.lightbend.seldon.streamlet.HttpFlowsServerLogic
 import pipelines.examples.modelserving.recommender.avro._
+import com.lightbend.seldon.configuration.ModelServingConfiguration._
 
 class RESTModelServerStreamlet extends AkkaServerStreamlet {
 
@@ -14,11 +15,9 @@ class RESTModelServerStreamlet extends AkkaServerStreamlet {
 
   final override val shape = StreamletShape.withInlets(in).withOutlets(out)
 
-  // val path = "http://localhost:8003/seldon/seldon/rest-tfserving/v1/models/recommender/:predict" // local
-  // val path = "http://rest-tfserving-resttfserving-model.seldon.svc.cluster.local:8000/v1/models/recommender/:predict" // cluster
-  val path = "http://ambassador.seldon.svc.cluster.local:80/seldon/seldon/rest-tfserving/v1/models/recommender/:predict" // cluster
+  println(s"Starting Rest Model Serving with location $REST_PATH")
 
-  val executor = new SeldonTFRESTExecutor("recommender", path)
+  val executor = new SeldonTFRESTExecutor("recommender", REST_PATH)
 
   override protected def createLogic(): AkkaStreamletLogic =
     new HttpFlowsServerLogic(this, executor, in, out)

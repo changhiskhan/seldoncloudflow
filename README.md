@@ -121,6 +121,13 @@ Build and deploy pipelines following [documentation](https://cloudflow.io/docs/c
 
 Create ingresses for models serving statistics using the following [yaml file](/deployments/modelservers.yaml)
 
+Note that Kafka install by cloudflow is setting `log.retention.hours: -1`, which means indefinitely. This can lead to filling Kafka disks especially if there is a high 
+frequency of writes. The following can be done to fix situation. Delete cloudflow install
+```` 
+kubectl delete cloudflow -n cloudflow default
+```` 
+Reinstall cloudflow using bootstrap script
+
 ## Avro tensor
 
 To simplify usage of the tensorflow that is all based on Tensors, this project implements Avro Tensor support, which consists of 2 main parts:

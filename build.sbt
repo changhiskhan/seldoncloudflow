@@ -25,7 +25,11 @@ lazy val support = (project in file("./support"))
   .settings(
     name := "support",
     version := thisVersion,
-    libraryDependencies ++= Seq(gson, scalajHTTP, akkaHttpJsonJackson, tensorFlow, tensorFlowProto, minio, typesafeConfig, ficus, logback, scalaTest)
+    libraryDependencies ++= Seq(gson, scalajHTTP, akkaHttpJsonJackson, fabric8Client, tensorFlow, tensorFlowProto, minio, typesafeConfig, ficus, logback, scalaTest),
+    dependencyOverrides += "io.grpc" % "grpc-netty" % "1.20.0",
+    dependencyOverrides += "io.grpc" % "grpc-protobuf" % "1.20.0",
+    dependencyOverrides += "io.grpc" % "grpc-stub" % "1.20.0",
+    dependencyOverrides += "io.grpc" % "grpc-core" % "1.20.0"
   )
   .dependsOn(protocols)
   .settings(commonSettings)

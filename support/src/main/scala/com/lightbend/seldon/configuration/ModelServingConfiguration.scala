@@ -39,6 +39,11 @@ object ModelServingConfiguration {
   } catch {
     case _: Throwable ⇒ 80
   }
+  val GRPC_TARGET = try {
+    config.getString("grpc.target")
+  } catch {
+    case _: Throwable ⇒ "kubernetes:///seldon/ambassador/8080"
+  }
 
   // HTTP
   val REST_PATH = try {
@@ -51,7 +56,7 @@ object ModelServingConfiguration {
   val DATA_FREQUENCY: FiniteDuration = (try {
     Duration(config.getString("source.frequency"))
   } catch {
-    case _: Throwable ⇒ Duration("5 millisecond")
+    case _: Throwable ⇒ Duration("3 millisecond")
   }).toMillis.millisecond
   val DATA_FILE = try {
     config.getString("source.data")
