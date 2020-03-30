@@ -60,7 +60,11 @@ lazy val FraudGRPCModelServing = (project in file("./fraud-grpc"))
   .enablePlugins(CloudflowApplicationPlugin)
   .settings(
     name := "fraud-grpc",
-    version := thisVersion
+    version := thisVersion,
+    dependencyOverrides += "io.grpc" % "grpc-netty" % "1.20.0",
+    dependencyOverrides += "io.grpc" % "grpc-protobuf" % "1.20.0",
+    dependencyOverrides += "io.grpc" % "grpc-stub" % "1.20.0",
+    dependencyOverrides += "io.grpc" % "grpc-core" % "1.20.0"
   )
   .settings(commonSettings)
   .dependsOn(support)

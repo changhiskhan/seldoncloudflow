@@ -63,7 +63,7 @@ class TensorFlowModelExecutorTensor(descriptor: ModelDescriptor, directory: Stri
       }
       outputNames.keys.foreach(out ⇒ runner.fetch(out))
       val result = runner.run().asScala
-      var mapResult = MMap[String, Tensor[_]]()
+      val mapResult = MMap[String, Tensor[_]]()
       0 to result.size - 1 foreach { i ⇒
         outputNames.get(outputNamesKeys(i)) match {
           case Some(name) ⇒ mapResult += (name -> result(i))

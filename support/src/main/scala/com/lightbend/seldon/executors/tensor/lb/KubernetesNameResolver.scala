@@ -50,6 +50,7 @@ class KubernetesNameResolver(namespace: String, name: String, port: Int, params:
       }
     } finally
       refreshing = false
+    ()
   }
 
   private def update(endpoints: Endpoints): Unit = {
@@ -72,28 +73,31 @@ class KubernetesNameResolver(namespace: String, name: String, port: Int, params:
   }
 
   private def watch(): Unit = synchronized {
-    if (watching) return
-    watching = true
 
-    kubernetesClient.endpoints.inNamespace(namespace).withName(name).watch(new Watcher[Endpoints]() {
-      override def eventReceived(action: Watcher.Action, endpoints: Endpoints): Unit = {
-        action match {
-          case Watcher.Action.MODIFIED ⇒
-          case Watcher.Action.ADDED ⇒
-            println("Endpoints modified")
-            update(endpoints)
-          case Watcher.Action.DELETED ⇒
-            println("Endpoints deleted")
-            listener.onAddresses(Seq.empty.asJava, Attributes.EMPTY)
-          case Watcher.Action.ERROR ⇒
-            println("Endpoints error")
-            listener.onError(io.grpc.Status.UNKNOWN)
-        }
-      }
+    watching match {
+      case false =>
+        kubernetesClient.endpoints.inNamespace(namespace).withName(name).watch(new Watcher[Endpoints]() {
+          override def eventReceived(action: Watcher.Action, endpoints: Endpoints): Unit = {
+            action match {
+              case Watcher.Action.MODIFIED ⇒
+              case Watcher.Action.ADDED ⇒
+                println("Endpoints modified")
+                update(endpoints)
+              case Watcher.Action.DELETED ⇒
+                println("Endpoints deleted")
+                listener.onAddresses(Seq.empty.asJava, Attributes.EMPTY)
+              case Watcher.Action.ERROR ⇒
+                println("Endpoints error")
+                listener.onError(io.grpc.Status.UNKNOWN)
+            }
+          }
 
-      override def onClose(e: KubernetesClientException): Unit = {
-        watching = false
-      }
-    })
+          override def onClose(e: KubernetesClientException): Unit = {
+            watching = false
+          }
+        })
+        watching = true
+      case _ => ()
+    }
   }
 }
