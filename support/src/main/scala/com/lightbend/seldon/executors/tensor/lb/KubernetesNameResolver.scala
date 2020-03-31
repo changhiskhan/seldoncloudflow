@@ -75,7 +75,7 @@ class KubernetesNameResolver(namespace: String, name: String, port: Int, params:
   private def watch(): Unit = synchronized {
 
     watching match {
-      case false =>
+      case false ⇒
         kubernetesClient.endpoints.inNamespace(namespace).withName(name).watch(new Watcher[Endpoints]() {
           override def eventReceived(action: Watcher.Action, endpoints: Endpoints): Unit = {
             action match {
@@ -97,7 +97,7 @@ class KubernetesNameResolver(namespace: String, name: String, port: Int, params:
           }
         })
         watching = true
-      case _ => ()
+      case _ ⇒ ()
     }
   }
 }

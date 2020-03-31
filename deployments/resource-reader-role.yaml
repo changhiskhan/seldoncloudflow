@@ -1,0 +1,23 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: fraud-grpc
+  name: resource-reader
+rules:
+  - apiGroups: [""]
+    resources: ["services", "pods", "endpoints"]
+    verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  namespace: fraud-grpc
+  name: service-endpoints-reader
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: resource-reader
+subjects:
+  - kind: ServiceAccount
+    name: cloudflow-app-serviceaccount
+    namespace: fraud-grpc
