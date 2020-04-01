@@ -163,5 +163,53 @@ Remove all evicted pods:
 ````
 kubectl get pods | grep Evicted | awk '{print $1}' | xargs kubectl delete pod
 ````
+
+##GRPC Load Balancing
+
+As explained [here](https://github.com/grpc/grpc/blob/master/doc/load-balancing.md) 
+there are several main approaches to GRPC load balancing:
+* Client load balancing
+* Proxy load balancing
+* External load balancing service
+
+Ambassador is serving as an external load balancing service. To test its capabilities and compare them to other options,
+we have a simple implementation of [client load balancing](support/src/main/scala/com/lightbend/seldon/executors/tensor/lb),
+which follows implementation [here](https://github.com/saturnism/grpc-by-example-java/tree/master/kubernetes-lb-example).
+This implementation is very limited (watcher does not quite work, grpc version is old, etc), but is good enough for initial 
+performance testing (below)
+
+##Performance testing
+
+###Load balanced direct TFServing GRPC
+![Results](images/DirectTFServing.png)
+Deployment - 15 TF servers, bases on this [configuration](deployments/tfserving.yaml), 15 Model serving servers
+
+###Load balanced direct Seldo with TFServing GRPC
+![Results](images/SeldonTFServing.png)
+Deployment - 15 Seldon TF servers, bases on this [configuration](deployments/fraud_tfserving_grpc.yaml), 15 Model serving servers. The important thing here
+is to make sure that Seldon deployment enough resources. Without this, although Seldon will seem to be working, it will start slowing down processing
+due to shortage of resources.
+
+##Seldo with TFServing GRPC accesed through load balanced Ambassador access
+![Results](images/AmbassadorLB.png)
+Deployment - 15 Seldon TF servers, bases on this [configuration](deployments/fraud_tfserving_grpc.yaml), 20 Model serving servers. 15 Ambassador servers.
+Here the throughput is lower, but this is expected due to additional network hop.
+Note that Seldon execution time, in this case, does not really grow 
+![Execution](images/SeldonExecution.png)
+
+##Seldo with TFServing GRPC accesed through Ambassador without load balancer
+![Results](images/Ambassador.png)
+Deployment - 15 Seldon TF servers, bases on this [configuration](deployments/fraud_tfserving_grpc.yaml), 20 Model serving servers. 15 Ambassador servers.
+Note that Seldon execution time, in this case, does not really grow either 
+![Execution](images/SeldonExecutionA.png)
+Here, although we are not using GRPC load balancing for acessing Ambassador, we are getting even better throughput compared
+to the previous case. As described in this [article](https://grpc.io/blog/grpc-load-balancing/):
+
+"In Proxy load balancing, the client issues RPCs to the a Load Balancer (LB) proxy. The LB distributes the RPC call to one of the available backend servers that implement the actual logic for serving the call."
+
+This means that effectively Ambassador implements external load balancing service pattern.
+
+
+
 Copyright (C) 2020 Lightbend Inc. (https://www.lightbend.com).
 

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fraudtfflow
 spec:
-  replicas: 1
+  replicas: 20
   selector:
     matchLabels:
       app: fraudtfflow

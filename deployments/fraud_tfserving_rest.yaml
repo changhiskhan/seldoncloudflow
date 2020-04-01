@@ -20,6 +20,13 @@ spec:
                 ports:
                   - containerPort: 8501
                     name: http
+                resources:
+                  limits:
+                    cpu: "2"
+                    memory: 2Gi
+                  requests:
+                    cpu: "1"
+                    memory: 1Gi
                 env:
                   - name: "AWS_REGION"
                     value: "eu-west-1"

@@ -11,7 +11,7 @@ class FraudTFGRPCExecutorTensorTest extends FlatSpec {
 
   val signature = ""
   val host = "localhost"
-  val port = 8003
+  val port = 5001
 
   // the model's name.
   val modelName = "fraud"
