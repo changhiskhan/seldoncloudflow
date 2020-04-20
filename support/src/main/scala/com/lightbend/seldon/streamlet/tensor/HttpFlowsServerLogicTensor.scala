@@ -33,14 +33,14 @@ class HttpFlowsServerLogicTensor(
 
   override def run(): Unit = {
     // Process input
-    sourceWithOffsetContext(inlet).via(dataFlow).runWith(sinkWithOffsetContext(outlet))
+    sourceWithOffsetContext(inlet).via(dataFlow).runWith(committableSink(outlet))
     // Start HTTP Server
     startServer(context, containerPort)
   }
 
   // Data processing
-  def dataFlow: FlowWithContext[SourceRequest, ConsumerMessage.CommittableOffset, ServingResult, ConsumerMessage.CommittableOffset, NotUsed] =
-    FlowWithOffsetContext[SourceRequest]
+  def dataFlow: FlowWithContext[SourceRequest, ConsumerMessage.Committable, ServingResult, ConsumerMessage.Committable, NotUsed] =
+    FlowWithCommittableContext[SourceRequest]
       .mapAsync(1) { record ⇒ modelserver.ask(record).mapTo[ServingResult] }
 
   // HTTP server

@@ -59,9 +59,9 @@ final case object FraudCalculatorTensor extends AkkaStreamlet {
 
           sourceWithOffsetContext(in) ~> partition.in
 
-          partition.out(0) ~> sinkWithOffsetContext(normals)
-          partition.out(1) ~> sinkWithOffsetContext(frauds)
-          partition.out(2) ~> sinkWithOffsetContext(errors)
+          partition.out(0) ~> committableSink(normals)
+          partition.out(1) ~> committableSink(frauds)
+          partition.out(2) ~> committableSink(errors)
 
           ClosedShape
         }

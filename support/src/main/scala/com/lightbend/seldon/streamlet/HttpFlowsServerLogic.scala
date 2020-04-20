@@ -33,13 +33,13 @@ class HttpFlowsServerLogic(
 
   override def run(): Unit = {
 
-    sourceWithOffsetContext(inlet).via(dataFlow).runWith(sinkWithOffsetContext(outlet))
+    sourceWithOffsetContext(inlet).via(dataFlow).runWith(committableSink(outlet))
     startServer(context, containerPort)
   }
 
   // Data processing
-  def dataFlow: FlowWithContext[RecommenderRecord, ConsumerMessage.CommittableOffset, RecommenderResult, ConsumerMessage.CommittableOffset, NotUsed] =
-    FlowWithOffsetContext[RecommenderRecord]
+  def dataFlow: FlowWithContext[RecommenderRecord, ConsumerMessage.Committable, RecommenderResult, ConsumerMessage.Committable, NotUsed] =
+    FlowWithCommittableContext[RecommenderRecord]
       .mapAsync(1) { record ⇒ modelserver.ask(record).mapTo[RecommenderResult] }
 
   def startServer(

@@ -18,10 +18,10 @@ lazy val protocols =  (project in file("./protocol"))
       "com.thesamet.scalapb" %% "scalapb-runtime" % scalapb.compiler.Version.scalapbVersion % "protobuf",
       "com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapb.compiler.Version.scalapbVersion
     ) ++ grpcDependencies,
-    dependencyOverrides += "io.grpc" % "grpc-netty" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-protobuf" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-stub" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-core" % "1.20.0"
+//    dependencyOverrides += "io.grpc" % "grpc-netty" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-protobuf" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-stub" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-core" % "1.20.0"
   )
 
 lazy val support = (project in file("./support"))
@@ -30,10 +30,10 @@ lazy val support = (project in file("./support"))
     name := "support",
     version := thisVersion,
     libraryDependencies ++= Seq(gson, scalajHTTP, akkaHttpJsonJackson, fabric8Client, tensorFlow, tensorFlowProto, minio, typesafeConfig, ficus, logback, scalaTest),
-    dependencyOverrides += "io.grpc" % "grpc-netty" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-protobuf" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-stub" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-core" % "1.20.0"
+//    dependencyOverrides += "io.grpc" % "grpc-netty" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-protobuf" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-stub" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-core" % "1.20.0"
   )
   .dependsOn(protocols)
   .settings(commonSettings)
@@ -65,10 +65,10 @@ lazy val FraudGRPCModelServing = (project in file("./fraud-grpc"))
   .settings(
     name := "fraud-grpc",
     version := thisVersion,
-    dependencyOverrides += "io.grpc" % "grpc-netty" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-protobuf" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-stub" % "1.20.0",
-    dependencyOverrides += "io.grpc" % "grpc-core" % "1.20.0"
+//    dependencyOverrides += "io.grpc" % "grpc-netty" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-protobuf" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-stub" % "1.20.0",
+//    dependencyOverrides += "io.grpc" % "grpc-core" % "1.20.0"
   )
   .settings(commonSettings)
   .dependsOn(support)

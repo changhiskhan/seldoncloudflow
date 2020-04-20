@@ -49,5 +49,5 @@ case class ConsoleEgressLogic(
   }
 
   // Runnable graph
-  def runnableGraph = sourceWithOffsetContext(inlet).map(write(_)).to(sinkWithOffsetContext)
+  def runnableGraph = sourceWithOffsetContext(inlet).map(write(_)).to(committableSink)
 }

@@ -20,6 +20,6 @@ final case object RecommenderResultConsoleEgress extends AkkaStreamlet {
     def write(record: RecommenderResult): Unit = println(record.toString)
 
     // Runnable graph
-    def runnableGraph = sourceWithOffsetContext(in).map(write(_)).to(sinkWithOffsetContext)
+    def runnableGraph = sourceWithOffsetContext(in).map(write(_)).to(committableSink)
   }
 }

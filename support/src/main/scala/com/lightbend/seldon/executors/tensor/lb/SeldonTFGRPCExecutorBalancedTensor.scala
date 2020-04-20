@@ -5,7 +5,7 @@ import com.lightbend.seldon.executors.SeldonTFGRPCExecutor
 import com.lightbend.seldon.executors.tensor.TFBaseExecutor
 import io.grpc._
 import io.grpc.stub._
-import io.grpc.util.RoundRobinLoadBalancerFactory
+//import io.grpc.util.RoundRobinLoadBalancerFactory
 import tensorflow.modelserving.avro._
 import tensorflow.serving.prediction_service._
 
@@ -31,7 +31,7 @@ class SeldonTFGRPCExecutorBalancedTensor(deployment: String, modelName: String, 
   // create a channel
   val channelbuilder = ManagedChannelBuilder.forTarget(target)
   channelbuilder.nameResolverFactory(new KubernetesNameResolverProvider())
-  channelbuilder.loadBalancerFactory(RoundRobinLoadBalancerFactory.getInstance())
+  //  channelbuilder.loadBalancerFactory(RoundRobinLoadBalancerFactory.getInstance())
   channelbuilder.usePlaintext()
   val channel = channelbuilder.build()
 
