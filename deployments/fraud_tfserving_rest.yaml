@@ -4,10 +4,10 @@ metadata:
   name: fraud-rest-tfserving
 spec:
   name: fraudresttfserving
+  protocol: tensorflow
+  transport: rest
   predictors:
-    - protocol: tensorflow
-      transport: rest
-      componentSpecs:
+    - componentSpecs:
         - spec:
             containers:
               - args:
@@ -65,7 +65,7 @@ spec:
         endpoint:
           service_port: 8501
       name: model
-      replicas: 20
+      replicas: 15
       svcOrchSpec:
         env:
           - name: TRACING

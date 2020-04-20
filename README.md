@@ -17,8 +17,8 @@ Here are the steps to install Seldon on k8 cluster (based on [this](https://gith
 kubectl create namespace seldon
 kubectl config set-context $(kubectl config current-context) --namespace=seldon
 kubectl create namespace seldon-system
-#helm install seldon-core seldon-core-operator --repo https://storage.googleapis.com/seldon-charts --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system
-helm install seldon-core --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system /Users/boris/BigData/seldon-core/helm-charts/seldon-core-operator
+helm install seldon-core seldon-core-operator --repo https://storage.googleapis.com/seldon-charts --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system
+#helm install seldon-core --set ambassador.enabled=true --set usageMetrics.enabled=true --namespace seldon-system /Users/boris/BigData/seldon-core/helm-charts/seldon-core-operator
 kubectl rollout status deploy/seldon-controller-manager -n seldon-system
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo update
@@ -170,7 +170,6 @@ As explained [here](https://github.com/grpc/grpc/blob/master/doc/load-balancing.
 there are several main approaches to GRPC load balancing:
 * Client load balancing
 * Proxy load balancing
-* External load balancing service
 
 Ambassador is serving as an external load balancing service. To test its capabilities and compare them to other options,
 we have a simple implementation of [client load balancing](support/src/main/scala/com/lightbend/seldon/executors/tensor/lb),

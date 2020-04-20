@@ -13,7 +13,7 @@ spec:
           - path: /modelserver/fraud/grpc
             backend:
               serviceName: fraud-grpc-model-serving-service
-              servicePort: 3003
+              servicePort: 3000
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress

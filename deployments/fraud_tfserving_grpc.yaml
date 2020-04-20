@@ -6,10 +6,10 @@ spec:
   annotations:
     seldon.io/headless-svc: "true"
   name: fraudgrpctfserving
+  protocol: tensorflow
+  transport: grpc
   predictors:
-    - protocol: tensorflow
-      transport: grpc
-      componentSpecs:
+    - componentSpecs:
         - spec:
             containers:
               - args:
