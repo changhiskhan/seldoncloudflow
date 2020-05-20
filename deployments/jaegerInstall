@@ -5,9 +5,9 @@ kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operato
 kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/master/deploy/role_binding.yaml
 kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/master/deploy/operator.yaml
 
-kubectl apply -f /Users/boris/Projects/TFGRPC/deployments/jaeger.yaml
+kubectl apply -f https://raw.githubusercontent.com/lightbend/seldoncloudflow/master/deployments/jaeger.yaml
 
 kubectl get jaegers
 kubectl get pods -l app.kubernetes.io/instance=simplest
 
-kubectl apply -f /Users/boris/Projects/TFGRPC/deployments/jaegerUI.yaml
+kubectl apply -f https://raw.githubusercontent.com/lightbend/seldoncloudflow/master/deployments/jaegerUI.yaml
